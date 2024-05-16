@@ -1,6 +1,7 @@
 package entidad;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -28,9 +29,9 @@ public class Paciente implements Serializable {
 	
 	@Column(name="telefono")
 	private String telefono;
-	
-	@Column(name="fecha_nacimiento")
-	private LocalDate fecha_nacimiento;
+
+	@Column(name="fecha_nacimiento",  columnDefinition = "DATE")
+	private Date fecha_nacimiento;
 	
 	@Column(name="direccion")
 	private String direccion;
@@ -44,7 +45,7 @@ public class Paciente implements Serializable {
 	// Constructor vacio requerido por Hibernate
 	public Paciente() {}
 
-	public Paciente(int dni, String nombre, String apellido, String emial, String telefono, LocalDate fecha_nacimiento,
+	public Paciente(int dni, String nombre, String apellido, String emial, String telefono, Date fecha_nacimiento,
 			String direccion, String localidad, String provincia) {
 		this.dni = dni;
 		this.nombre = nombre;
@@ -98,11 +99,11 @@ public class Paciente implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public LocalDate getFecha_nacimiento() {
+	public Date getFecha_nacimiento() {
 		return fecha_nacimiento;
 	}
 
-	public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+	public void setFecha_nacimiento(Date fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
