@@ -3,11 +3,15 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -24,10 +28,25 @@ public class Usuario {
 
     @Column(name = "contrasena", nullable = false)
     private String contrasena;
+    
+    @OneToOne(mappedBy="usuario",fetch=FetchType.EAGER)
+    private Medico medico;
 
     // Getters y setters
 
-    // Constructor
+    public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
+	// Constructor
     public Usuario() {}
 
     public Usuario(String Usuario, String contrasena) {

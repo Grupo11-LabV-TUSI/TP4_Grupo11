@@ -19,7 +19,7 @@ public class Medico {
     private Long id;
     private String nombre;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
