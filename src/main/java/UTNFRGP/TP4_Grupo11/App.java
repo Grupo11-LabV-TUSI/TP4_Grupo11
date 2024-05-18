@@ -46,6 +46,11 @@ public class App
 			System.out.println(DaoHibernatePaciente.leerTodos());
 		}
         
+        Medico medico = new Medico();
+        medico.setNombre("Dr. Juan Perez");
+        
+        DaoHibernateMedico daoMedico = new DaoHibernateMedico();
+        daoMedico.crearMedico(medico);
 
     }
 }
