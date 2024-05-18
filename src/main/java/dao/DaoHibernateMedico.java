@@ -1,48 +1,73 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import entidad.Medico;
 
 public class DaoHibernateMedico {
-	 private SessionFactory sessionFactory;
+    public static void crearMedico(Medico medico) {
+        ConfigHibernate ch = new ConfigHibernate();
+        Session session = ch.abrirConexion();
 
-	    public void crearMedico(Medico medico) {
-	        Session session = sessionFactory.openSession();
-	        session.beginTransaction();
-	        session.save(medico);
-	        session.getTransaction().commit();
-	        session.close();
-	    }
+        session.beginTransaction();
+        session.save(medico);
+        session.getTransaction().commit();
 
-	    public Medico obtenerMedicoPorId(Long id) {
-	        Session session = sessionFactory.openSession();
-	        Medico medico = (Medico) session.get(Medico.class, id);
-	        session.close();
-	        return medico;
-	    }
+        ch.cerrarSession();
+    }
 
-	    public void actualizarMedico(Medico medico) {
-	        Session session = sessionFactory.openSession();
-	        session.beginTransaction();
-	        session.update(medico);
-	        session.getTransaction().commit();
-	        session.close();
-	    }
+    public Medico obtenerMedicoPorId(Long id) {
+        ConfigHibernate ch = new ConfigHibernate();
+        Session session = ch.abrirConexion();
+        
+        session.beginTransaction();
+        Medico medico = (Medico) session.get(Medico.class, id);
+        session.getTransaction().commit();
+        
+        ch.cerrarSession();
+        
+        return medico;
+    }
 
-	    public void borrarMedico(Long id) {
-	        Session session = sessionFactory.openSession();
-	        session.beginTransaction();
-	        Medico medico = (Medico) session.get(Medico.class, id);
-	        if (medico != null) {
-	            session.delete(medico);
-	        }
-	        session.getTransaction().commit();
-	        session.close();
-	    }
+    public void actualizarMedico(Medico medico) {
+        ConfigHibernate ch = new ConfigHibernate();
+        Session session = ch.abrirConexion();
 
-	    public void cerrar() {
-	        sessionFactory.close();
-	    }
+        session.beginTransaction();
+        session.update(medico);
+        session.getTransaction().commit();
+
+        ch.cerrarSession();
+    }
+
+    public void borrarMedico(Long id) {
+        ConfigHibernate ch = new ConfigHibernate();
+        Session session = ch.abrirConexion();
+
+        session.beginTransaction();
+        Medico medico = (Medico) session.get(Medico.class, id);
+        if (medico != null) {
+            session.delete(medico);
+        }
+        session.getTransaction().commit();
+
+        ch.cerrarSession();
+    }
+
+    public List<Medico> leerTodos() {
+        ConfigHibernate ch = new ConfigHibernate();
+        Session session = ch.abrirConexion();
+        List<Medico> lista = new ArrayList<Medico>();
+
+        session.beginTransaction();
+        Query queryMedico = session.createQuery("SELECT m FROM Medico m");
+        lista = queryMedico.list();
+
+        ch.cerrarSession();
+
+        return lista;
+    }
+
 }

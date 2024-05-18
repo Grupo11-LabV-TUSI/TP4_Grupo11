@@ -8,6 +8,7 @@ import dao.DaoHibernatePaciente;
 import dao.DaoHibernateMedico;
 import entidad.Medico;
 import entidad.Paciente;
+import entidad.Usuario;
 import excepciones.PK_Paciente_Repetida;
 
 /**
@@ -46,8 +47,19 @@ public class App
 			System.out.println(DaoHibernatePaciente.leerTodos());
 		}
         
+        
+        
+        
+        Usuario usuario = new Usuario();
+        usuario.setUsuario("doctor1");
+        usuario.setContrasena("password1");
+
         Medico medico = new Medico();
         medico.setNombre("Dr. Juan Perez");
+        medico.setUsuario(usuario);
+        usuario.setMedico(medico);
+       
+        DaoHibernateMedico.crearMedico(medico);
 
     }
 }
