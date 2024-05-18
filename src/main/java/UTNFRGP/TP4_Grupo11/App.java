@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import dao.DaoHibernatePaciente;
+import dao.DaoHibernateMedico;
+import entidad.Medico;
 import entidad.Paciente;
 import excepciones.PK_Paciente_Repetida;
 
@@ -43,6 +45,13 @@ public class App
 		//	DaoHibernatePaciente.borrar(paciente);
 			System.out.println(DaoHibernatePaciente.leerTodos());
 		}
+        
+        Medico medico = new Medico();
+        medico.setNombre("Dr. Juan Perez");
+        
+        DaoHibernateMedico daoMedico = new DaoHibernateMedico();
+        daoMedico.crearMedico(medico);
+
     }
 }
 
