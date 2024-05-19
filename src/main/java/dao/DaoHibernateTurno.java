@@ -1,73 +1,72 @@
 package dao;
 
-import java.util.ArrayList;
-import java.util.List;
+import entidad.Turno;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import entidad.Medico;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DaoHibernateMedico {
-    public static void crearMedico(Medico medico) {
+public class DaoHibernateTurno {
+    public static void crearTurno(Turno turno) {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
 
         session.beginTransaction();
-        session.save(medico);
+        session.save(turno);
         session.getTransaction().commit();
 
         ch.cerrarSession();
     }
 
-    public Medico obtenerMedicoPorId(Long id) {
+    public Turno obtenerTurnoPorId(Long id) {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
         
         session.beginTransaction();
-        Medico medico = (Medico) session.get(Medico.class, id);
+        Turno turno = (Turno) session.get(Turno.class, id);
         session.getTransaction().commit();
         
         ch.cerrarSession();
         
-        return medico;
+        return turno;
     }
 
-    public void actualizarMedico(Medico medico) {
+    public void actualizarTurno(Turno turno) {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
 
         session.beginTransaction();
-        session.update(medico);
+        session.update(turno);
         session.getTransaction().commit();
 
         ch.cerrarSession();
     }
 
-    public void borrarMedico(Long id) {
+    public void borrarTurno(Long id) {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
 
         session.beginTransaction();
-        Medico medico = (Medico) session.get(Medico.class, id);
-        if (medico != null) {
-            session.delete(medico);
+        Turno turno = (Turno) session.get(Turno.class, id);
+        if (turno != null) {
+            session.delete(turno);
         }
         session.getTransaction().commit();
 
         ch.cerrarSession();
     }
 
-    public static List<Medico> leerTodos() {
+    public List<Turno> leerTodos() {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
-        List<Medico> lista = new ArrayList<Medico>();
+        List<Turno> lista = new ArrayList<Turno>();
 
         session.beginTransaction();
-        Query queryMedico = session.createQuery("SELECT m FROM Medico m");
-        lista = queryMedico.list();
+        Query queryTurno = session.createQuery("SELECT t FROM Turno t");
+        lista = queryTurno.list();
 
         ch.cerrarSession();
 
         return lista;
     }
-
 }

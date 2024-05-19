@@ -7,4 +7,5 @@ public interface IHibernateMedicoDao {
     Medico obtenerMedicoPorId(Long id);
     void actualizarMedico(Medico medico);
     void borrarMedico(Long id);
+    void leerTodos();
 }

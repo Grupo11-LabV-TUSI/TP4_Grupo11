@@ -12,68 +12,80 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "medicos")
 public class Medico implements Serializable {
-  
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nombre;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String nombre;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+	@OneToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "especialidad_id")
-    private Especialidad especialidad;
-    /*
-    
-    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
-    private Set<Turno> turnos;
-    */
-    public Long getId() {
-        return id;
-    }
+	@ManyToOne
+	@JoinColumn(name = "especialidad_id")
+	private Especialidad especialidad;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
+	private Set<Turno> turnos;
 
-    public String getNombre() {
-        return nombre;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-    /*
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
-    }
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-    public Set<Turno> getTurnos() {
-        return turnos;
-    }
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
-    public void setTurnos(Set<Turno> turnos) {
-        this.turnos = turnos;
-    }
-    
-    */
+	public Especialidad getEspecialidad() {
+		return especialidad;
+	}
+
+	public void setEspecialidad(Especialidad especialidad) {
+		this.especialidad = especialidad;
+	}
+
+	public Set<Turno> getTurnos() {
+		return turnos;
+	}
+
+	public void setTurnos(Set<Turno> turnos) {
+		this.turnos = turnos;
+	}
+	
+	
+	/*
+	 * public Especialidad getEspecialidad() { return especialidad; }
+	 * 
+	 * public void setEspecialidad(Especialidad especialidad) { this.especialidad =
+	 * especialidad; }
+	 * 
+	 * public Set<Turno> getTurnos() { return turnos; }
+	 * 
+	 * public void setTurnos(Set<Turno> turnos) { this.turnos = turnos; }
+	 * 
+	 */
 }
