@@ -5,7 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import dao.DaoHibernatePaciente;
+import daoImpl.EspecialidadesDaoImplementado;
+import dao.ConfigHibernate;
+import dao.DaoHibernateEspecialidad;
 import dao.DaoHibernateMedico;
+import entidad.Especialidad;
 import entidad.Medico;
 import entidad.Paciente;
 import entidad.Usuario;
@@ -19,6 +23,8 @@ public class App
 {
     public static void main( String[] args )
     {
+    	/*
+    	
     	LocalDate fechaLocal = LocalDate.of(2000, 1, 1);
     	java.sql.Date fechaNacimiento = java.sql.Date.valueOf(fechaLocal);
 	
@@ -46,10 +52,6 @@ public class App
 		//	DaoHibernatePaciente.borrar(paciente);
 			System.out.println(DaoHibernatePaciente.leerTodos());
 		}
-        
-        
-        
-        
         Usuario usuario = new Usuario();
         usuario.setUsuario("doctor1");
         usuario.setContrasena("password1");
@@ -59,7 +61,11 @@ public class App
         medico.setUsuario(usuario);
         usuario.setMedico(medico);
        
-        DaoHibernateMedico.crearMedico(medico);
+       DaoHibernateMedico.crearMedico(medico);
+    	 */
+    	Especialidad espe = new Especialidad ("Cardiologia");
+    	
+    	DaoHibernateEspecialidad.crearEspecialidad(espe);
 
     }
 }

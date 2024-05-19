@@ -14,5 +14,6 @@
     	<mapping class="entidad.Paciente"/>
     	<mapping class="entidad.Usuario"/>
     	<mapping class="entidad.Medico"/>
+    	<mapping class="entidad.Especialidad"/>
     </session-factory>
 </hibernate-configuration>
