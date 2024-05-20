@@ -41,6 +41,26 @@ public class Turno implements Serializable {
 
 	public Turno() {
 	}
+	
+	
+	
+	
+
+	public Turno(Long id, Paciente paciente, Medico medico, Date fecha, String hora, String observacion,
+			String estado) {
+		super();
+		this.id = id;
+		this.paciente = paciente;
+		this.medico = medico;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.observacion = observacion;
+		this.estado = estado;
+	}
+
+
+
+
 
 	public Long getId() {
 		return id;

@@ -1,10 +1,13 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import entidad.Especialidad;
+import entidad.Medico;
 
 public class DaoHibernateEspecialidad {
 	
@@ -54,10 +57,21 @@ public class DaoHibernateEspecialidad {
 		session.close();
 	}
 
-	public List<Especialidad> listarEspecialidad() {
-		// TODO Auto-generated method stub
-		return null;
+	public static List<Especialidad> leerTodos() {
+	    ConfigHibernate ch = new ConfigHibernate();
+	    Session session = ch.abrirConexion();
+	    List<Especialidad> lista = new ArrayList<Especialidad>();
+
+	    session.beginTransaction();
+	    Query queryEspecialidad = session.createQuery("SELECT m FROM Especialidad m");
+	    lista = queryEspecialidad.list();
+
+	    ch.cerrarSession();
+
+	    return lista;
 	}
+
+	
 
 
 }

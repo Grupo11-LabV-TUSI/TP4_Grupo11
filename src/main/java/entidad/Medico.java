@@ -35,14 +35,27 @@ public class Medico implements Serializable {
 
 	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
 	private Set<Turno> turnos;
+	
+	
+	
+
+	public Medico(String nombre, Usuario usuario, Especialidad especialidad) {
+		super();
+		
+		this.nombre = nombre;
+		this.usuario = usuario;
+		this.especialidad = especialidad;
+		
+	}
+	
+
+	public Medico() {}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 
 	public String getNombre() {
 		return nombre;
@@ -77,15 +90,6 @@ public class Medico implements Serializable {
 	}
 	
 	
-	/*
-	 * public Especialidad getEspecialidad() { return especialidad; }
-	 * 
-	 * public void setEspecialidad(Especialidad especialidad) { this.especialidad =
-	 * especialidad; }
-	 * 
-	 * public Set<Turno> getTurnos() { return turnos; }
-	 * 
-	 * public void setTurnos(Set<Turno> turnos) { this.turnos = turnos; }
-	 * 
-	 */
+	
+	 
 }

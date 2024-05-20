@@ -1,6 +1,8 @@
 package entidad;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import dao.ConfigHibernate;
 
 @Entity
 public class Especialidad implements Serializable{
@@ -44,6 +51,11 @@ public String getNombre() {
 }
 public void setNombre(String nombre) {
 	this.nombre = nombre;
+}
+
+@Override
+public String toString() {
+	return "Especialidad [especialidad_id=" + especialidad_id + ", nombre=" + nombre + "]";
 }
 
 
