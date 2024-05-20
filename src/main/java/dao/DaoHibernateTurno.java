@@ -18,7 +18,7 @@ public class DaoHibernateTurno {
         ch.cerrarSession();
     }
 
-    public Turno obtenerTurnoPorId(Long id) {
+    public static Turno obtenerTurnoPorId(Long id) {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
         
@@ -31,7 +31,7 @@ public class DaoHibernateTurno {
         return turno;
     }
 
-    public void actualizarTurno(Turno turno) {
+    public static void actualizarTurno(Turno turno) {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
 
@@ -42,7 +42,7 @@ public class DaoHibernateTurno {
         ch.cerrarSession();
     }
 
-    public void borrarTurno(Long id) {
+    public static void borrarTurno(Long id) {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
 
@@ -56,7 +56,7 @@ public class DaoHibernateTurno {
         ch.cerrarSession();
     }
 
-    public List<Turno> leerTodos() {
+    public static List<Turno> leerTodos() {
         ConfigHibernate ch = new ConfigHibernate();
         Session session = ch.abrirConexion();
         List<Turno> lista = new ArrayList<Turno>();

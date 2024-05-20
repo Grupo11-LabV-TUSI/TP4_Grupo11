@@ -25,7 +25,7 @@ import entidad.Turno;
 public class App {
 	public static void main(String[] args) {
 
-
+		
 		
 
 		
@@ -227,9 +227,6 @@ public class App {
 		Turno turno11 = new Turno(paciente8, medico11, fTurno11, "18:30", "Dolor de espalda", "Pendiente");
 		DaoHibernateTurno.crearTurno(turno11);
 
-		
-		
-		
 		
 		
 		
