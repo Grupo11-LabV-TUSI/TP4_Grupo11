@@ -27,7 +27,6 @@ public class App {
 
 
 		
-		
 
 		
 		  // Lista de nombres de especialidades médicas
@@ -156,8 +155,79 @@ public class App {
         Paciente paciente9 = new Paciente(9645654, "Pedro", "Rodríguez", "pedroRodriguez@gmail.com", "36985214", fechaNac9, "Avenida 9", "Neuquén", "Neuquén");
         DaoHibernatePaciente.crear(paciente9);
      
+     
+     
+     
+     
+		
+		LocalDate fechaTurno1 = LocalDate.of(2024, 12, 12);
+	    java.sql.Date fTurno = java.sql.Date.valueOf(fechaTurno1);
+	
+		Turno turno1 = new Turno(paciente1, medico1, fTurno, "15:30", "Reuma", "Ausente");
+		DaoHibernateTurno.crearTurno(turno1);
+		
+		LocalDate fechaTurno2 = LocalDate.of(2024, 6, 1);
+	    java.sql.Date fTurno2 = java.sql.Date.valueOf(fechaTurno2);
+	
+		Turno turno2 = new Turno(paciente2, medico2, fTurno2, "20:30", "Tiene piojos", "Pendiente");
+		DaoHibernateTurno.crearTurno(turno2);
+		
+		LocalDate fechaTurno3 = LocalDate.of(2022, 3, 21);
+		java.sql.Date fTurno3 = java.sql.Date.valueOf(fechaTurno3);
+		
+		Turno turno3 = new Turno(paciente3, medico3, fTurno3, "10:45", "Fiebre", "Ausente");
+		DaoHibernateTurno.crearTurno(turno3);
+		
+		LocalDate fechaTurno4 = LocalDate.of(2023, 7, 15);
+		java.sql.Date fTurno4 = java.sql.Date.valueOf(fechaTurno4);
+		
+		Turno turno4 = new Turno(paciente4, medico4, fTurno4, "08:00", "Dolor de cabeza", "Presente");
+		DaoHibernateTurno.crearTurno(turno4);
+		
+		LocalDate fechaTurno5 = LocalDate.of(2023, 9, 30);
+		java.sql.Date fTurno5 = java.sql.Date.valueOf(fechaTurno5);
+		
+		Turno turno5 = new Turno(paciente5, medico5, fTurno5, "14:30", "Gripe", "Pendiente");
+		DaoHibernateTurno.crearTurno(turno5);
+		
+		LocalDate fechaTurno6 = LocalDate.of(2024, 2, 10);
+		java.sql.Date fTurno6 = java.sql.Date.valueOf(fechaTurno6);
+		
+		Turno turno6 = new Turno(paciente6, medico6, fTurno6, "11:00", "Dolor de garganta", "Presente");
+		DaoHibernateTurno.crearTurno(turno6);
+		
+		LocalDate fechaTurno7 = LocalDate.of(2024, 4, 5);
+		java.sql.Date fTurno7 = java.sql.Date.valueOf(fechaTurno7);
+		
+		Turno turno7 = new Turno(paciente7, medico7, fTurno7, "09:45", "Resfriado", "Ausente");
+		DaoHibernateTurno.crearTurno(turno7);
+		
+		LocalDate fechaTurno8 = LocalDate.of(2024, 8, 20);
+		java.sql.Date fTurno8 = java.sql.Date.valueOf(fechaTurno8);
+		
+		Turno turno8 = new Turno(paciente8, medico8, fTurno8, "17:20", "Alergia", "Pendiente");
+		DaoHibernateTurno.crearTurno(turno8);
+		
+		LocalDate fechaTurno9 = LocalDate.of(2024, 10, 12);
+		java.sql.Date fTurno9 = java.sql.Date.valueOf(fechaTurno9);
+		
+		Turno turno9 = new Turno(paciente3, medico9, fTurno9, "13:00", "Control de rutina", "Presente");
+		DaoHibernateTurno.crearTurno(turno9);
+		
+		LocalDate fechaTurno10 = LocalDate.of(2024, 11, 28);
+		java.sql.Date fTurno10 = java.sql.Date.valueOf(fechaTurno10);
+		
+		Turno turno10 = new Turno(paciente8, medico10, fTurno10, "16:40", "Presión alta", "Ausente");
+		DaoHibernateTurno.crearTurno(turno10);
+		
+		LocalDate fechaTurno11 = LocalDate.of(2025, 1, 5);
+		java.sql.Date fTurno11 = java.sql.Date.valueOf(fechaTurno11);
+		
+		Turno turno11 = new Turno(paciente8, medico11, fTurno11, "18:30", "Dolor de espalda", "Pendiente");
+		DaoHibernateTurno.crearTurno(turno11);
+
+		/*
         
-        /*
 		
 		//		LocalDate fechaLocal = LocalDate.of(2000, 1, 2);
 //		java.sql.Date fechaNacimiento = java.sql.Date.valueOf(fechaLocal);
@@ -233,8 +303,7 @@ public class App {
 		
 		
 		
-		
-		
+	
 		
 		
 	}

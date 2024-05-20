@@ -46,10 +46,9 @@ public class Turno implements Serializable {
 	
 	
 
-	public Turno(Long id, Paciente paciente, Medico medico, Date fecha, String hora, String observacion,
+	public Turno(Paciente paciente, Medico medico, Date fecha, String hora, String observacion,
 			String estado) {
-		super();
-		this.id = id;
+		
 		this.paciente = paciente;
 		this.medico = medico;
 		this.fecha = fecha;
@@ -66,9 +65,6 @@ public class Turno implements Serializable {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Paciente getPaciente() {
 		return paciente;
