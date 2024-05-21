@@ -14,7 +14,7 @@ public class ConfigHibernate {
 		Configuration configuration = new Configuration();
 		configuration.configure();
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-		sessionFactory = configuration.buildSessionFactory(serviceRegistry);		
+		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 	}
 	
 	public Session abrirConexion() {
@@ -30,5 +30,4 @@ public class ConfigHibernate {
 	public void cerrarSessionFactory() {
 		sessionFactory.close();
 	}
-
 }

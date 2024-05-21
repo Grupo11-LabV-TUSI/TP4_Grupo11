@@ -1,61 +1,88 @@
 package entidad;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "medicos")
-public class Medico implements Serializable {
+/* Querys definidas por notacion */
+@NamedQueries({
+	@NamedQuery(
+		name = "findMedicoByMatricula",
+		query = "SELECT m FROM Medico m WHERE matricula=:matricula"
+		),
+	@NamedQuery(
+			name = "findAllMedicos",
+			query = "SELECT m FROM Medico m"
+		)
+})
 
+@Entity
+@Table(name="Medico")
+public class Medico implements Serializable{
+	// Implementa Serializable
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Column(name="matricula")
+	private Long matricula;
+	
+	@Column(name="nombre")
 	private String nombre;
-
-	@OneToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "usuario_id")
+	
+	@Column(name="apellido")
+	private String apellido;
+	
+	@Column(name="email")
+	private String email;
+	
+	@Column(name="telefono")
+	private String telefono;
+	
+	@Column(name="fecha_nacimiento")
+	private LocalDate fecha_nacimiento;
+	
+	@OneToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 
-	@ManyToOne
-	@JoinColumn(name = "especialidad_id")
+	@ManyToOne(cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+	@JoinColumn(name="especialidad_id")
 	private Especialidad especialidad;
-
-	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
-	private Set<Turno> turnos;
 	
-	
-	
-
-	public Medico(String nombre, Usuario usuario, Especialidad especialidad) {
-		super();
-		
-		this.nombre = nombre;
-		this.usuario = usuario;
-		this.especialidad = especialidad;
-		
-	}
-	
-
+	// Constructor vacio para hibernate
 	public Medico() {}
 
-	public Long getId() {
-		return id;
+	public Medico(Long matricula, String nombre, String apellido, String email, String telefono,
+			LocalDate fecha_nacimiento, Usuario usuario, Especialidad especialidad) {
+		this.matricula = matricula;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.telefono = telefono;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.usuario = usuario;
+		this.especialidad = especialidad;
 	}
 
+	// Getters y Setters
+	public Long getMatricula() {
+		return matricula;
+	}
 
+	public void setMatricula(Long matricula) {
+		this.matricula = matricula;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -63,6 +90,38 @@ public class Medico implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public LocalDate getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+
+	public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
 	public Usuario getUsuario() {
@@ -81,15 +140,12 @@ public class Medico implements Serializable {
 		this.especialidad = especialidad;
 	}
 
-	public Set<Turno> getTurnos() {
-		return turnos;
+	// toString
+	@Override
+	public String toString() {
+		return "Medico [matricula=" + matricula + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email
+				+ ", telefono=" + telefono + ", fecha_nacimiento=" + fecha_nacimiento + ", usuario=" + usuario
+				+ ", especialidad=" + especialidad + "]";
 	}
-
-	public void setTurnos(Set<Turno> turnos) {
-		this.turnos = turnos;
-	}
 	
-	
-	
-	 
 }

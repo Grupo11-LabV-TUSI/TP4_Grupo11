@@ -1,63 +1,66 @@
 package entidad;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/* Querys definidas por notacion */
+@NamedQueries({
+	@NamedQuery(
+		name = "findAllPacientes",
+		query = "SELECT p FROM Paciente p"
+		)
+})
+
 @Entity
-@Table(name = "Paciente")
+@Table(name="Paciente")
 public class Paciente implements Serializable {
 	// Implementar serializable
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@Column(name = "dni")
+	@Column(name="dni")
 	private int dni;
-
-	@Column(name = "nombre")
+	
+	@Column(name="nombre")
 	private String nombre;
-
-	@Column(name = "apellido")
+	
+	@Column(name="apellido")
 	private String apellido;
-
-	@Column(name = "email")
-	private String emial;
-
-	@Column(name = "telefono")
+	
+	@Column(name="email")
+	private String email;
+	
+	@Column(name="telefono")
 	private String telefono;
-
-	@Column(name = "fecha_nacimiento", columnDefinition = "DATE")
-	private Date fecha_nacimiento;
-
-	@Column(name = "direccion")
+	
+	@Column(name="fecha_nacimiento")
+	private LocalDate fecha_nacimiento;
+	
+	@Column(name="direccion")
 	private String direccion;
-
-	@Column(name = "localidad")
+	
+	@Column(name="localidad")
 	private String localidad;
-
-	@Column(name = "provincia")
+	
+	@Column(name="provincia")
 	private String provincia;
-
-	@OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
-	private List<Turno> turnos;
-
+	
 	// Constructor vacio requerido por Hibernate
-	public Paciente() {
-	}
+	public Paciente() {}
 
-	public Paciente(int dni, String nombre, String apellido, String emial, String telefono, Date fecha_nacimiento,
+	public Paciente(int dni, String nombre, String apellido, String email, String telefono, LocalDate fecha_nacimiento,
 			String direccion, String localidad, String provincia) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.emial = emial;
+		this.email = email;
 		this.telefono = telefono;
 		this.fecha_nacimiento = fecha_nacimiento;
 		this.direccion = direccion;
@@ -65,7 +68,7 @@ public class Paciente implements Serializable {
 		this.provincia = provincia;
 	}
 
-	// Geters y Seters
+	// Getters y Setters
 	public int getDni() {
 		return dni;
 	}
@@ -90,12 +93,12 @@ public class Paciente implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public String getEmial() {
-		return emial;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmial(String emial) {
-		this.emial = emial;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getTelefono() {
@@ -106,11 +109,11 @@ public class Paciente implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public Date getFecha_nacimiento() {
+	public LocalDate getFecha_nacimiento() {
 		return fecha_nacimiento;
 	}
 
-	public void setFecha_nacimiento(Date fecha_nacimiento) {
+	public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
@@ -138,19 +141,12 @@ public class Paciente implements Serializable {
 		this.provincia = provincia;
 	}
 
-	public List<Turno> getTurnos() {
-		return turnos;
-	}
-
-	public void setTurnos(List<Turno> turnos) {
-		this.turnos = turnos;
-	}
-
+	// toString
 	@Override
 	public String toString() {
-		return "Paciente [dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", emial=" + emial
+		return "Paciente [dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email
 				+ ", telefono=" + telefono + ", fecha_nacimiento=" + fecha_nacimiento + ", direccion=" + direccion
 				+ ", localidad=" + localidad + ", provincia=" + provincia + "]";
 	}
-
+	
 }

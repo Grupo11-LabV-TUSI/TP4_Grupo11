@@ -1,12 +1,13 @@
 package dao;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import entidad.Paciente;
+import excepciones.PK_Paciente_NoExiste;
 import excepciones.PK_Paciente_Repetida;
 
 public class DaoHibernatePaciente {
@@ -16,7 +17,7 @@ public class DaoHibernatePaciente {
 
 		session.beginTransaction();
 		
-		if(existePaciente(paciente.getDni()) == true) {
+		if(existe(paciente.getDni()) == true) {
 			throw new PK_Paciente_Repetida();
 		} else {
 			session.save(paciente);			
@@ -40,12 +41,17 @@ public class DaoHibernatePaciente {
 		return paciente;
 	}
 	
-	public static void actualizar(Paciente paciente) {
+	public static void actualizar(Paciente paciente) throws PK_Paciente_NoExiste {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		
 		session.beginTransaction();
-		session.update(paciente);
+		
+		if(existe(paciente.getDni()) == false) {
+			throw new PK_Paciente_NoExiste();
+		} else {
+			session.update(paciente);			
+		}
 		
 		session.getTransaction().commit();		
 		ch.cerrarSession();
@@ -65,17 +71,20 @@ public class DaoHibernatePaciente {
 	public static List<Paciente> leerTodos(){
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		List<Paciente> lista = new ArrayList<Paciente>();
+		//List<Paciente> lista = new ArrayList<Paciente>();
 		
 		session.beginTransaction();
 		
-		Query queryPaciente = session.createQuery("Select p FROM Paciente p");
-		lista = queryPaciente.list();
+		//Query queryPaciente = session.createQuery("Select p FROM Paciente p");
+		//lista = queryPaciente.list();
+		
+		Query query = session.getNamedQuery("findAllPacientes");
+		List<Paciente> lista = query.list();
 		
 		return lista;
 	}
 	
-	public static boolean existePaciente(int dni) {
+	public static boolean existe(int dni) {
 		boolean existe = false;
 		
 		if(leer(dni) != null) {

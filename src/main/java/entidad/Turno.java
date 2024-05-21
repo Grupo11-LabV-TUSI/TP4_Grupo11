@@ -1,77 +1,97 @@
 package entidad;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import enums.EstadoTurno;
+
+/* Querys definidas por notacion */
+@NamedQueries({
+	@NamedQuery(
+		name = "findTurnoById",
+		query = "SELECT t FROM Turno t WHERE id=:id"
+		),
+	@NamedQuery(
+			name = "findAllTurnos",
+			query = "SELECT t FROM Turno t"
+		)
+})
 
 @Entity
-@Table(name = "turnos")
-public class Turno implements Serializable {
-
+@Table(name="Turno")
+public class Turno  implements Serializable{
+	// Implemnetar serializable
 	private static final long serialVersionUID = 1L;
-
-	// Medico, Paciente, fecha, hora, observación, estado
+	// atributos
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "dni", nullable = false)
-	private Paciente paciente;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "medico_id", nullable = false)
+	
+	@ManyToOne(cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+	@JoinColumn(name="medico_id")
 	private Medico medico;
-
-	@Column(name = "fecha", nullable = false)
-	private Date fecha;
-
-	@Column(name = "hora", nullable = false)
-	private String hora;
-
-	@Column(name = "observacion", nullable = false)
+	
+	@ManyToOne(cascade= {CascadeType.ALL}, fetch=FetchType.EAGER)
+	@JoinColumn(name="paciente_id")
+	private Paciente paciente;
+	
+	@Column(name="fecha")
+	private LocalDate fecha;
+	
+	@Column(name="hora")
+	private LocalTime hora;
+	
+	@Column(name="observacion")
 	private String observacion;
+	
+	@Column(name="estado")
+	private EstadoTurno estado;
+	
+	// constructor vacio para hibernate
+	public Turno() {}
 
-	@Column(name = "estado", nullable = false)
-	private String estado;
-
-	public Turno() {
-	}
-	
-	
-	
-	
-
-	public Turno(Paciente paciente, Medico medico, Date fecha, String hora, String observacion,
-			String estado) {
-		
-		this.paciente = paciente;
+	public Turno(Medico medico, Paciente paciente, LocalDate fecha, LocalTime hora, String observacion,
+			EstadoTurno estado) {
 		this.medico = medico;
+		this.paciente = paciente;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.observacion = observacion;
 		this.estado = estado;
 	}
 
-
-
-
-
+	public Turno(Long id, Medico medico, Paciente paciente, LocalDate fecha, LocalTime hora, String observacion,
+			EstadoTurno estado) {
+		this.id = id;
+		this.medico = medico;
+		this.paciente = paciente;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.observacion = observacion;
+		this.estado = estado;
+	}
+	// Getters y Setters
 	public Long getId() {
 		return id;
 	}
 
-
-	public Paciente getPaciente() {
-		return paciente;
-	}
-
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Medico getMedico() {
@@ -82,19 +102,27 @@ public class Turno implements Serializable {
 		this.medico = medico;
 	}
 
-	public Date getFecha() {
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 
-	public String getHora() {
+	public LocalTime getHora() {
 		return hora;
 	}
 
-	public void setHora(String hora) {
+	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
 
@@ -106,12 +134,18 @@ public class Turno implements Serializable {
 		this.observacion = observacion;
 	}
 
-	public String getEstado() {
+	public EstadoTurno getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadoTurno estado) {
 		this.estado = estado;
+	}
+	// toString
+	@Override
+	public String toString() {
+		return "Turno [id=" + id + ", medico=" + medico + ", paciente=" + paciente + ", fecha=" + fecha + ", hora="
+				+ hora + ", observacion=" + observacion + ", estado=" + estado + "]";
 	}
 
 }

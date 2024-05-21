@@ -1,77 +1,93 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import entidad.Especialidad;
-import entidad.Medico;
+import excepciones.PK_Especialidad_NoExiste;
+import excepciones.PK_Especialidad_Repetida;
 
 public class DaoHibernateEspecialidad {
-	
-    ConfigHibernate ch= new ConfigHibernate();
-    Session session = ch.abrirConexion();
-	
-	
-	public static void crearEspecialidad(Especialidad especialidad) {
-		ConfigHibernate ch= new ConfigHibernate();
-	    Session session = ch.abrirConexion();
-		session.beginTransaction();
-		session.save(especialidad);
-		session.getTransaction().commit();
-		session.close();
-		
-	}
-
-	public static Especialidad obtenerEspecialidadPorId(int id) {
-		ConfigHibernate ch= new ConfigHibernate();
-	    Session session = ch.abrirConexion();
-		Especialidad especialidad = (Especialidad)session.get(Especialidad.class, id);
-		session.close();
-			
-		return especialidad;
-	}
-
-	public static void actualizarEspecialidad(Especialidad especialidad) {
-		ConfigHibernate ch= new ConfigHibernate();
-	    Session session = ch.abrirConexion();
+	// crear
+	public static void crear(Especialidad especialidad) throws PK_Especialidad_Repetida {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
 
 		session.beginTransaction();
-		session.update(especialidad);
-		session.getTransaction().commit();
-		session.close();
 		
+		if(existe(especialidad.getId()) == true) {
+			throw new PK_Especialidad_Repetida();
+		} else {
+			session.save(especialidad);			
+		}
+		
+		session.getTransaction().commit();
+		
+		ch.cerrarSession();
 	}
-
-	public static void borrarEspecialidad(int id) {
-		ConfigHibernate ch= new ConfigHibernate();
-	    Session session = ch.abrirConexion();
+	// leer
+	public static Especialidad leer(Long id) {
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		
 		session.beginTransaction();
 		Especialidad especialidad = (Especialidad)session.get(Especialidad.class,id);
-		if(especialidad != null) {
-			session.delete(especialidad);
+		
+		session.getTransaction().commit();		
+		ch.cerrarSession();
+		
+		return especialidad;
+	}
+	// actualizar
+	public static void actualizar(Especialidad especialidad) throws PK_Especialidad_NoExiste{
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		
+		session.beginTransaction();
+		
+		if(existe(especialidad.getId()) == false) {
+			throw new PK_Especialidad_NoExiste();
+		} else {
+			session.update(especialidad);
 		}
-		session.getTransaction().commit();
-		session.close();
+		
+		session.getTransaction().commit();		
+		ch.cerrarSession();
 	}
-
-	public static List<Especialidad> leerTodos() {
-	    ConfigHibernate ch = new ConfigHibernate();
-	    Session session = ch.abrirConexion();
-	    List<Especialidad> lista = new ArrayList<Especialidad>();
-
-	    session.beginTransaction();
-	    Query queryEspecialidad = session.createQuery("SELECT m FROM Especialidad m");
-	    lista = queryEspecialidad.list();
-
-	    ch.cerrarSession();
-
-	    return lista;
+	// borrar
+	public static void borrar(Especialidad especialidad) { //Este paciente tiene que venir cargado el ID de especialidad que se quiere eliminar
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		
+		session.beginTransaction();
+        session.delete(especialidad);
+        
+        session.getTransaction().commit();         
+        ch.cerrarSession();
 	}
-
-	
-
+	// listar
+	public static List<Especialidad> leerTodos(){
+		ConfigHibernate ch = new ConfigHibernate();
+		Session session = ch.abrirConexion();
+		
+		session.beginTransaction();
+		
+		Query query = session.getNamedQuery("findAllEspecialidades");
+		List<Especialidad> lista = query.list();
+		
+		return lista;
+	}
+	// existe
+	public static boolean existe(Long id) {
+		boolean existe = false;
+		
+		if(leer(id) != null) {
+			existe = true;
+		}
+		
+		return existe;
+	}
 
 }

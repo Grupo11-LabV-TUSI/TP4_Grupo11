@@ -1,66 +1,71 @@
 package entidad;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-
-import dao.ConfigHibernate;
+/* Querys definidas por notacion */
+@NamedQueries({
+	@NamedQuery(
+		name = "findAllEspecialidades",
+		query = "SELECT e FROM Especialidad e"
+		)
+})
 
 @Entity
+@Table(name="Especialidad")
 public class Especialidad implements Serializable{
+	// Serializable
+	private static final long serialVersionUID = 1L;
 
-
-
-private static final long serialVersionUID = 1L;
-
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY) 
-private int especialidad_id;
-@Column(name= "Nombre_Especialidad", nullable = false, unique = true)
-private String nombre;
-
-
-public Especialidad () {}
-
-public Especialidad (String nombre) {
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
+	@Column(name="nombre",unique=true)
+	private String nombre;
+
+	// Constructor vacio requerido por Hibernate
+	public Especialidad() {}
 	
-	this.nombre = nombre;
+	public Especialidad(Long id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
 	
-}
+	public Especialidad(String nombre) {
+		this.nombre = nombre;
+	}
 
+	// Getters y Setters
+	public Long getId() {
+		return id;
+	}
 
-public int getId() {
-	return especialidad_id;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
+	public String getNombre() {
+		return nombre;
+	}
 
-public String getNombre() {
-	return nombre;
-}
-public void setNombre(String nombre) {
-	this.nombre = nombre;
-}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-@Override
-public String toString() {
-	return "Especialidad [especialidad_id=" + especialidad_id + ", nombre=" + nombre + "]";
-}
-
-
-
-
-
+	// toString
+	@Override
+	public String toString() {
+		return "Especialidad [id=" + id + ", nombre=" + nombre + "]";
+	}	
 
 }

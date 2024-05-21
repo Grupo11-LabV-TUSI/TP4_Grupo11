@@ -1,44 +1,88 @@
 package entidad;
-import java.io.Serializable;
-import java.sql.Date;
-import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/* Querys definidas por notacion */
+@NamedQueries({
+	@NamedQuery(
+		name = "findAllUsuarios",
+		query = "SELECT u FROM Usuario u"
+		)
+})
 
 @Entity
-@Table(name = "usuarios")
-public class Usuario implements Serializable {
-	
+@Table(name="Usuario")
+public class Usuario implements Serializable{
 
- 
+	// Implements Serializable
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name="nombre",unique=true)
+	private String nombre;
+	
+	@Column(name="clave")
+	private String clave;
+	
+	@OneToOne(mappedBy="usuario", fetch = FetchType.LAZY)
+	private Medico medico;
 
-    @Column(name = "usuario", nullable = false, unique = true)
-    private String Usuario;
+	// Constructor vacio para Hibernate
+	public Usuario() {}
 
-    @Column(name = "contrasena", nullable = false)
-    private String contrasena;
-    
-    @OneToOne(mappedBy="usuario",fetch=FetchType.EAGER)
-    private Medico medico;
+	public Usuario(Long id, String nombre, String clave) {
+		this.id = id;
+		this.nombre = nombre;
+		this.clave = clave;
+	}
+	
+	public Usuario(String nombre, String clave) {
+		this.nombre = nombre;
+		this.clave = clave;
+	}
 
-    // Getters y setters
+	// Getters y Setters
+	public Long getId() {
+		return id;
+	}
 
-    public Medico getMedico() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getClave() {
+		return clave;
+	}
+
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+	
+	// Bidireccional
+	public Medico getMedico() {
 		return medico;
 	}
 
@@ -46,40 +90,13 @@ public class Usuario implements Serializable {
 		this.medico = medico;
 	}
 
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+	@Override
+	public String toString() {
+		String mensaje = "Usuario [id=" + id + ", nombre=" + nombre + ", clave=" + clave + ", medico=";
+		if(medico != null) {
+			mensaje += medico.getMatricula() + " " + medico.getNombre() + " " + medico.getApellido() + " " + medico.getEmail() + " " + medico.getTelefono() + " " + medico.getFecha_nacimiento() + " " + medico.getEspecialidad();
+		}
+		return mensaje;
 	}
 
-	// Constructor
-    public Usuario() {}
-
-    public Usuario(String Usuario, String contrasena) {
-        this.Usuario = Usuario;
-        this.contrasena = contrasena;
-    }
-
-    // Getters y setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsuario() {
-        return Usuario;
-    }
-
-    public void setUsuario(String Usuario) {
-        this.Usuario = Usuario;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContraseña(String contrasena) {
-        this.contrasena = contrasena;
-    }
 }
