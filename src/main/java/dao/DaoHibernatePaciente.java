@@ -15,74 +15,75 @@ public class DaoHibernatePaciente {
 		Session session = ch.abrirConexion();
 
 		session.beginTransaction();
-		
-		if(existePaciente(paciente.getDni()) == true) {
+
+		if (existePaciente(paciente.getDni()) == true) {
 			throw new PK_Paciente_Repetida();
 		} else {
-			session.save(paciente);			
+			session.save(paciente);
 		}
-		
+
 		session.getTransaction().commit();
-		
+
 		ch.cerrarSession();
 	}
-	
+
 	public static Paciente leer(int dni) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		
+
 		session.beginTransaction();
-		Paciente paciente = (Paciente)session.get(Paciente.class,dni);
-		
-		session.getTransaction().commit();		
+		Paciente paciente = (Paciente) session.get(Paciente.class, dni);
+
+		session.getTransaction().commit();
 		ch.cerrarSession();
-		
+
 		return paciente;
 	}
-	
+
 	public static void actualizar(Paciente paciente) {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		
+
 		session.beginTransaction();
 		session.update(paciente);
-		
-		session.getTransaction().commit();		
+
+		session.getTransaction().commit();
 		ch.cerrarSession();
 	}
-	
-	public static void borrar(Paciente paciente) { //Este paciente tiene que venir cargado el DNI del usuario que se quiere eliminar
+
+	public static void borrar(Paciente paciente) { // Este paciente tiene que venir cargado el DNI del usuario que se
+													// quiere eliminar
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
-		
+
 		session.beginTransaction();
-        session.delete(paciente);
-        
-        session.getTransaction().commit();         
-        ch.cerrarSession();
+		session.delete(paciente);
+
+		session.getTransaction().commit();
+		ch.cerrarSession();
 	}
-	
-	public static List<Paciente> leerTodos(){
+
+	public static List<Paciente> leerTodos() {
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 		List<Paciente> lista = new ArrayList<Paciente>();
-		
+
 		session.beginTransaction();
-		
+
 		Query queryPaciente = session.createQuery("Select p FROM Paciente p");
 		lista = queryPaciente.list();
-		
+
 		return lista;
 	}
-	
+
 	public static boolean existePaciente(int dni) {
 		boolean existe = false;
-		
-		if(leer(dni) != null) {
+
+		if (leer(dni) != null) {
 			existe = true;
 		}
-		
+
 		return existe;
 	}
-	
+
 }

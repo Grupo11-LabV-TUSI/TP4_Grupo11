@@ -9,24 +9,25 @@ import org.hibernate.service.ServiceRegistryBuilder;
 public class ConfigHibernate {
 	private SessionFactory sessionFactory;
 	private Session session;
-	
+
 	public ConfigHibernate() {
 		Configuration configuration = new Configuration();
 		configuration.configure();
-		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-		sessionFactory = configuration.buildSessionFactory(serviceRegistry);		
+		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
+				.buildServiceRegistry();
+		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 	}
-	
+
 	public Session abrirConexion() {
-		session=sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		return session;
 	}
-	
-	public void cerrarSession()	{
+
+	public void cerrarSession() {
 		session.close();
 		cerrarSessionFactory();
 	}
-	
+
 	public void cerrarSessionFactory() {
 		sessionFactory.close();
 	}
