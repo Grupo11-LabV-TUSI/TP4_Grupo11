@@ -41,14 +41,8 @@ public class Turno implements Serializable {
 
 	public Turno() {
 	}
-	
-	
-	
-	
 
-	public Turno(Paciente paciente, Medico medico, Date fecha, String hora, String observacion,
-			String estado) {
-		
+	public Turno(Paciente paciente, Medico medico, Date fecha, String hora, String observacion, String estado) {
 		this.paciente = paciente;
 		this.medico = medico;
 		this.fecha = fecha;
@@ -57,14 +51,9 @@ public class Turno implements Serializable {
 		this.estado = estado;
 	}
 
-
-
-
-
 	public Long getId() {
 		return id;
 	}
-
 
 	public Paciente getPaciente() {
 		return paciente;
@@ -113,5 +102,12 @@ public class Turno implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	@Override
+	public String toString() {
+		return "Turno [id=" + id + ", paciente=" + paciente + ", medico=" + medico + ", fecha=" + fecha + ", hora="
+				+ hora + ", observacion=" + observacion + ", estado=" + estado + "]";
+	}
+	
 
 }

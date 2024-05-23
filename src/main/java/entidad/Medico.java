@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,29 +34,24 @@ public class Medico implements Serializable {
 	@JoinColumn(name = "especialidad_id")
 	private Especialidad especialidad;
 
-	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	private Set<Turno> turnos;
-	
-	
-	
 
 	public Medico(String nombre, Usuario usuario, Especialidad especialidad) {
 		super();
-		
+
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.especialidad = especialidad;
-		
-	}
-	
 
-	public Medico() {}
+	}
+
+	public Medico() {
+	}
 
 	public Long getId() {
 		return id;
 	}
-
-
 
 	public String getNombre() {
 		return nombre;
@@ -88,8 +84,11 @@ public class Medico implements Serializable {
 	public void setTurnos(Set<Turno> turnos) {
 		this.turnos = turnos;
 	}
-	
-	
-	
-	 
+
+	@Override
+	public String toString() {
+		return "Medico [id=" + id + ", nombre=" + nombre + ", usuario=" + usuario + ", especialidad=" + especialidad
+				+ ", turnos=" + turnos + "]";
+	}
+
 }
